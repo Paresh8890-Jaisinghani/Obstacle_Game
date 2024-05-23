@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obstacle Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="ins">
+        <button onclick="StartGame()" id="sbtn">Start</button>
+    </div>
+    <div id="bgame">
+        <div id="game">
+            <div id="bluecar"><img src="blue.png" alt=""></div>
+            <div id="racecar"><img src="car.png" alt=""></div>
+        </div>
+        <div id="clr">
+            <button id="left" onclick="left()">Left</button>
+            <button id="right" onclick="right()">Right</button>
+        </div>
+    </div>
+    <div id="result">
+        <h1>Game Result</h1>
+        <p id="score"></p>
+        <button onclick="Re()" id="btn">Next Attempt</button>
+    </div>
+    <div id="res">
+        <h1>Game Result</h1>
+        <p id="score1"></p>
+        <p id="score2"></p>
+        <p id="score3"></p>
+        <p id="score4"></p>
+        <div class="final-btn"><a href="http://localhost:3000/last" id="btn">Next</a></div>
+    </div>
+
+    <audio id="jai_shree_ram" src="traffic.mp3"></audio>
+    <script src="../Obstacle_Backend/main.js"></script>
+</body>
+
+</html>
