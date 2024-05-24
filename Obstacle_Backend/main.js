@@ -6,6 +6,10 @@ const score1 =  document.getElementById("score1")
 const score2 =  document.getElementById("score2")
 const score3 =  document.getElementById("score3")
 const score4 =  document.getElementById("score4")
+const loginform  = document.getElementById("loginform");
+const number = document.getElementById("otp");
+const mainMenu = document.getElementById("main_Menu");
+const sec = document.querySelector(".sec");
 var ins =  document.getElementById("ins");
 var game =  document.getElementById("game");
 var bgame =  document.getElementById("bgame");
@@ -14,6 +18,49 @@ var jai_shree_ram = document.getElementById("jai_shree_ram");
 var testResults = [];
 var cnt=0;
 var counter=0;
+
+let otp;
+
+loginform.addEventListener("submit", async function(ev){
+    ev.preventDefault();
+    const temp = number.value;
+    otp = temp.toString();
+    console.log(otp);
+
+    try{
+        const response = await fetch('http://localhost:3005/api/scores',{
+            method : 'POST',
+            headers :{
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                ObstacleScore1 : 0,
+                ObstacleScore2 : 0,
+                ObstacleScore3 : 0,
+                otpcode : otp
+            })
+        });
+
+        if (response.status === 404) {
+            alert("Wrong code Entered, Please try again.");
+            location.reload();
+            return;
+        }
+
+        sec.style.display = "none";
+        mainMenu.style.display = "block";
+        alert("You are logged in successfully.");
+    } catch (err) {
+        console.error('Error logging in:', err.message);
+        alert("An error occurred. Please try again.");
+    }
+  });
+
+  async function getotpFromUser() {
+    return otp;
+  }
+
+
 
 bgame.style.display = "none";
 res.style.display = "none";
@@ -96,7 +143,7 @@ const StartGame = () => {
     });
 
     //Game over
-    setInterval(function Gameover (){
+    setInterval( async function Gameover (){
         var blueCarTop = parseInt(window.getComputedStyle(blueCar).getPropertyValue("top"));
         var blueCarLeft = parseInt(window.getComputedStyle(blueCar).getPropertyValue("left"));
         var raceCarLeft = parseInt(window.getComputedStyle(raceCar).getPropertyValue("left"));
@@ -114,7 +161,26 @@ const StartGame = () => {
                     score2.innerHTML = `score 2: ${testResults[1]}/15 `;
                     score3.innerHTML = `score 3: ${testResults[2]}/15 `;
                     score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
+
+                    try {
+                        const otp = await getotpFromUser();
+                        const response = await fetch('http://localhost:3005/api/scores', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                Quiz_Score :userScore + "/" + questions.length,
+                                otpcode: otp
+                            })
+                        });
+                            console.log('Score saved successfully');
+                    } catch (err) {
+                        console.error('Error saving score:', err.message);
+                    }
                 }
+
+
                 return;
             }
     }, 10)
