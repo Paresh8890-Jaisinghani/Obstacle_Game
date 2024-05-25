@@ -48,7 +48,7 @@ loginform.addEventListener("submit", async function(ev){
         }
 
         sec.style.display = "none";
-        mainMenu.style.display = "block";
+        mainMenu.style.display = "flex";
         alert("You are logged in successfully.");
     } catch (err) {
         console.error('Error logging in:', err.message);
