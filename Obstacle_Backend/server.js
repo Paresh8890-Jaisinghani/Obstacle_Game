@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
-const COntact = require('./model.js');
 const Contact = require('./model.js');
 
 
@@ -33,24 +32,23 @@ app.post('/api/scores', async (req,res)=>{
         if(!contact){
            return res.status(404).json({message : "Wrong code Entered"});
         }
-
-        contact.ObstacleScore1 = ObstacleScore1,
-        contact.ObstacleScore2 = ObstacleScore2,
-        contact.ObstacleScore3 = ObstacleScore3,
+        
+        contact.ObstacleScore1 = ObstacleScore1;
+        contact.ObstacleScore2 = ObstacleScore2;
+        contact.ObstacleScore3 = ObstacleScore3;
 
         await contact.save();
         res.status(201).json(contact);
     }
     catch(e){
         res.status(500).json({message : e.message});
-
     }
 });
 
 
 app.get('/api/scores',async(req,res)=>{
     try{
-        const contacts = Contact.find();
+        const contacts = await Contact.find();
         res.json(contacts);
     }
     catch(err){

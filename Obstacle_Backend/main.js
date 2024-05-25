@@ -113,14 +113,6 @@ const StartGame = () => {
             score.innerHTML = `score: ${counter}/15 `;
             jai_shree_ram.pause();
             counter = 0;
-            if(cnt == 3){
-                result.style.display = "none";
-                res.style.display = "block";
-                score1.innerHTML = `score 1: ${testResults[0]}/15 `;
-                score2.innerHTML = `score 2: ${testResults[1]}/15 `;
-                score3.innerHTML = `score 3: ${testResults[2]}/15 `;
-                score4.innerHTML = `Average: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(3)}`;
-            }
             return;
         }
     })
@@ -154,13 +146,7 @@ const StartGame = () => {
                 score.innerHTML = `score: ${counter}/15 `;
                 jai_shree_ram.pause();
                 counter = 0;
-                if(cnt == 2){
-                    result.style.display = "none";
-                    res.style.display = "block";
-                    score1.innerHTML = `score 1: ${testResults[0]}/15 `;
-                    score2.innerHTML = `score 2: ${testResults[1]}/15 `;
-                    score3.innerHTML = `score 3: ${testResults[2]}/15 `;
-                    score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
+                if(cnt == 2){ 
 
                     try {
                         const otp = await getotpFromUser();
@@ -170,7 +156,9 @@ const StartGame = () => {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                Quiz_Score :userScore + "/" + questions.length,
+                                ObstacleScore1 : `${testResults[0]}/15`,
+                                ObstacleScore2: `${testResults[1]}/15 `,
+                                ObstacleScore3 : `${testResults[2]}/15 `,
                                 otpcode: otp
                             })
                         });
@@ -178,9 +166,15 @@ const StartGame = () => {
                     } catch (err) {
                         console.error('Error saving score:', err.message);
                     }
+
+                    result.style.display = "none";
+                    res.style.display = "block";
+                    score1.innerHTML = `score 1: ${testResults[0]}/15 `;
+                    score2.innerHTML = `score 2: ${testResults[1]}/15 `;
+                    score3.innerHTML = `score 3: ${testResults[2]}/15 `;
+                    score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
+
                 }
-
-
                 return;
             }
     }, 10)
