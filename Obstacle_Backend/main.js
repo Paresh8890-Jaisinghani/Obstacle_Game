@@ -173,7 +173,6 @@ const StartGame = () => {
                     score2.innerHTML = `score 2: ${testResults[1]}/15 `;
                     score3.innerHTML = `score 3: ${testResults[2]}/15 `;
                     score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
-
                 }
                 return;
             }
