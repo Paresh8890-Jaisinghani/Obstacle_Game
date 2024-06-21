@@ -21,6 +21,18 @@ var counter=0;
 
 let otp;
 
+let isNavigatingAway = false; // Flag to track if the user clicked the "Next" button
+
+// Function to warn the user before reloading or leaving the page
+function warnUserBeforeReload(event) {
+    if (!isNavigatingAway) {
+        const confirmationMessage = "If you reload the page, your score will be deleted.";
+        (event || window.event).returnValue = confirmationMessage; // Standard for most browsers
+        return confirmationMessage; // Required for some older browsers
+    }
+}
+
+
 loginform.addEventListener("submit", async function(ev){
     ev.preventDefault();
     const temp = number.value;
@@ -50,6 +62,7 @@ loginform.addEventListener("submit", async function(ev){
         sec.style.display = "none";
         mainMenu.style.display = "flex";
         alert("You are logged in successfully.");
+        window.addEventListener("beforeunload",warnUserBeforeReload)
     } catch (err) {
         console.error('Error logging in:', err.message);
         alert("An error occurred. Please try again.");
@@ -135,6 +148,14 @@ const StartGame = () => {
     });
 
     //Game over
+    
+function navigateToNext() {
+    isNavigatingAway = true;
+    
+    window.location.href = "http://localhost:3002/last"; // Replace with the actual URL of the next page
+    
+}
+
     setInterval( async function Gameover (){
         var blueCarTop = parseInt(window.getComputedStyle(blueCar).getPropertyValue("top"));
         var blueCarLeft = parseInt(window.getComputedStyle(blueCar).getPropertyValue("left"));
@@ -147,7 +168,7 @@ const StartGame = () => {
                 jai_shree_ram.pause();
                 counter = 0;
                 if(cnt == 2){ 
-
+                    window.removeEventListener("beforeunload",warnUserBeforeReload)
                     try {
                         const otp = await getotpFromUser();
                         const response = await fetch('http://localhost:3005/api/scores', {
@@ -173,6 +194,7 @@ const StartGame = () => {
                     score2.innerHTML = `score 2: ${testResults[1]}/15 `;
                     score3.innerHTML = `score 3: ${testResults[2]}/15 `;
                     score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
+                    
                 }
                 return;
             }
