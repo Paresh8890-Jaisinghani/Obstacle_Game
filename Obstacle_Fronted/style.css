@@ -187,6 +187,11 @@ a {
     background-color: #6289bd;
 }
 
+#score4{
+    margin-top: 20px;
+    font-weight: 600;
+}
+
 
 /* Form Style */
 .sec{
