@@ -190,9 +190,9 @@ function navigateToNext() {
 
                     result.style.display = "none";
                     res.style.display = "block";
-                    score1.innerHTML = `score 1: ${testResults[0]}/15 `;
-                    score2.innerHTML = `score 2: ${testResults[1]}/15 `;
-                    score3.innerHTML = `score 3: ${testResults[2]}/15 `;
+                    score1.innerHTML = `Score 1: ${String(testResults[0]).padStart(2, '0')}/15 `;
+                    score2.innerHTML = `Score 2: ${String(testResults[1]).padStart(2, '0')}/15 `;
+                    score3.innerHTML = `Score 3: ${String(testResults[2]).padStart(2, '0')}/15 `;
                     score4.innerHTML = `Accuracy: ${((testResults[0]+testResults[1]+testResults[2])/3/15*100).toFixed(2)}%`;
                     
                 }
