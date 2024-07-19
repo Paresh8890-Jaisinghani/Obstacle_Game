@@ -123,7 +123,7 @@ const StartGame = () => {
             testResults.push(counter);
             bgame.style.display = "none";
             result.style.display = "block";
-            score.innerHTML = `score: ${counter}/15 `;
+            score.innerHTML = `Score: ${counter}/15 `;
             jai_shree_ram.pause();
             counter = 0;
             return;
@@ -164,7 +164,7 @@ function navigateToNext() {
                 testResults.push(counter);
                 bgame.style.display = "none";
                 result.style.display = "block";
-                score.innerHTML = `score: ${counter}/15 `;
+                score.innerHTML = `Score: ${counter}/15 `;
                 jai_shree_ram.pause();
                 counter = 0;
                 if(cnt == 2){ 
